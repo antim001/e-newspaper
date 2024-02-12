@@ -1,8 +1,25 @@
-import React from 'react';
+import {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './../../shared/Navbar/Navbar';
+import { AuthContext } from './../../provider/AuthProvider';
 
 const Register = () => {
+    const {createUser}=useContext(AuthContext)
+    const handleRegister=(e)=>{
+        e.preventDefault();
+        const form=new FormData(e.currentTarget);
+        const email=form.get('email');
+        const password=form.get('password');
+        const photo=form.get('photo');
+        const name=form.get('name');
+       createUser(email,password)
+       .then(result=>{
+           console.log(result.user);
+       })
+       .catch(error=>{
+         console.log(error);
+       })
+    }
     return (
         <div>
             <Navbar></Navbar>
@@ -13,7 +30,7 @@ const Register = () => {
       
     </div>
     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-200">
-      <form   className="card-body">
+      <form onSubmit={handleRegister}  className="card-body">
       <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>
@@ -30,14 +47,14 @@ const Register = () => {
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" name='passwoed' placeholder="password" className="input input-bordered" required />
+          <input type="password" name='password' placeholder="password" className="input input-bordered" required />
           
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Photo URL</span>
           </label>
-          <input type="text" name='photo'placeholder="email" className="input input-bordered" required />
+          <input type="text" name='photo'placeholder="photo" className="input input-bordered" required />
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Register</button>

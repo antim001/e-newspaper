@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
-import qZone1 from '../../public/qZone1.png';
+import qZone1 from '../assets/1.png'
 import qZone2 from '../../public/qZone2.png';
 import qZone3 from '../../public/qZone3.png';
 

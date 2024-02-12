@@ -1,7 +1,9 @@
 
 import Root from './../layouts/Root';
+import Login from './../Login/Login';
 import Home from './../pages/Home/Home';
 import {
+
 
 
 
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
       {
         path:'/',
         element:<Home></Home>
+      },
+      {
+        path:'/login',
+        element:<Login></Login>
       }
     ]
   },

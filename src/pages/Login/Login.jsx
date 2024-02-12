@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from './../../shared/Navbar/Navbar';
 
 const Login = () => {
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div>
+            <Navbar></Navbar>
+            <div className="hero min-h-screen bg-base-200">
   <div className="hero-content flex-col mb-4">
     <div className="text-center ">
       <h1 className="text-5xl font-bold">Login Your Account</h1>
@@ -34,6 +37,7 @@ const Login = () => {
     </div>
   </div>
 </div>
+        </div>
     );
 };
 

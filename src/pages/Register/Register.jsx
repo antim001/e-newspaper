@@ -1,24 +1,41 @@
 import {useContext} from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import Navbar from './../../shared/Navbar/Navbar';
-import { AuthContext } from './../../provider/AuthProvider';
+import { AuthContext } from './../../Provider/AuthProvider';
+import { toast } from 'react-hot-toast';
+
 
 const Register = () => {
     const {createUser}=useContext(AuthContext)
+    const navigate=useNavigate()
     const handleRegister=(e)=>{
         e.preventDefault();
         const form=new FormData(e.currentTarget);
         const email=form.get('email');
         const password=form.get('password');
-        const photo=form.get('photo');
+        
         const name=form.get('name');
-       createUser(email,password)
-       .then(result=>{
-           console.log(result.user);
-       })
-       .catch(error=>{
-         console.log(error);
-       })
+        if(password.length<6){
+          toast.error("password must be 6 characters")
+          return;
+        }
+        createUser(email,password)
+        .then(res => {
+          // Display success message using toast.success()
+          toast.success('registration  successful!');
+          navigate('/')
+          console.log(res);
+      })
+        .catch(error => {
+          // Display Firebase error message using toast.error()
+          if (error.code === 'auth/email-already-in-use') {
+            toast.error('Email is already in use');
+          } else {
+            toast.error(error.message);
+          }
+          console.log(error);  // Optionally log the error
+        });
+        
     }
     return (
         <div>
@@ -50,12 +67,7 @@ const Register = () => {
           <input type="password" name='password' placeholder="password" className="input input-bordered" required />
           
         </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Photo URL</span>
-          </label>
-          <input type="text" name='photo'placeholder="photo" className="input input-bordered" required />
-        </div>
+       
         <div className="form-control mt-6">
           <button className="btn btn-primary">Register</button>
         </div>

@@ -5,11 +5,9 @@ import Home from './../pages/Home/Home';
 import Register from './../pages/Register/Register';
 import News from './../pages/News/News';
 import PrivateRoute from './Private/PrivateRoute';
-import {
-
-
-createBrowserRouter,
-} from "react-router-dom";
+import About from './../pages/About';
+import Career from './../pages/Career';
+import {createBrowserRouter,} from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +30,14 @@ const router = createBrowserRouter([
       {
        path:'/register',
        element:<Register></Register>
+      },
+      {
+        path:'/about',
+        element:<About></About>
+      },
+      {
+        path:'/career',
+        element:<Career></Career>
       }
       
     ]

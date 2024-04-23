@@ -1,22 +1,34 @@
 import {useContext}from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate  } from 'react-router-dom';
 import Navbar from './../../shared/Navbar/Navbar';
-import { AuthContext } from './../../provider/AuthProvider';
+
+import { toast } from 'react-hot-toast';
+import { AuthContext } from './../../Provider/AuthProvider';
 
 const Login = () => {
   const{signIn}=useContext(AuthContext)
+  const navigate=useNavigate()
   const handleLogin=(e)=>{
     e.preventDefault()
     const form=new FormData(e.currentTarget);
     const email=form.get('email');
     const password=form.get('password');
     signIn(email,password)
-    .then(result=>{
-       console.log(result.user);
-    })
-    .catch(error=>{
-       console.log(error);
-    })
+    .then(res => {
+      // Display success message using toast.success()
+      toast.success('Login successful!');
+      navigate('/')
+      console.log(res);
+  })
+  .catch(error => {
+      // Display Firebase error message using toast.error()
+      if (error.code === 'auth/invalid-credential') {
+          toast.error('Invalid credentials. Please check your email and password.');
+      } else {
+          toast.error(error.message);
+      }
+      console.log(error);  // Optionally log the error
+  });
 
   }
     return (
